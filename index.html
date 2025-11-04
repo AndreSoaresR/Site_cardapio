@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio de Natal 🎄</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #fff8f0, #ffe8d6);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #d62828;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+    h2 {
+      color: #d62828;
+      border-bottom: 2px solid #d62828;
+      padding-bottom: 0.3rem;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+      padding: 0.8rem 1rem;
+      background-color: #fff5f0;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .item:hover {
+      background-color: #ffe0d3;
+      transform: scale(1.02);
+    }
+    label {
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    button {
+      background-color: #d62828;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: block;
+      margin: 2rem auto 0;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #9c1d1d;
+      transform: scale(1.05);
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🎅 Cardápio de Natal 🎄</header>
+
+  <div class="container">
+    <h2>Escolha seus produtos:</h2>
+
+    <div class="item">
+      <label><input type="checkbox" name="item" value="Panetone Recheado"> Panetone Recheado</label>
+    </div>
+
+    <div class="item">
+      <label><input type="checkbox" name="item" value="Caixa de Trufas"> Caixa de Trufas</label>
+    </div>
+
+    <div class="item">
+      <label><input type="checkbox" name="item" value="Chocotone Gourmet"> Chocotone Gourmet</label>
+    </div>
+
+    <div class="item">
+      <label><input type="checkbox" name="item" value="Cesta de Natal"> Cesta de Natal</label>
+    </div>
+
+    <div class="item">
+      <label><input type="checkbox" name="item" value="Bombom Artesanal"> Bombom Artesanal</label>
+    </div>
+
+    <button onclick="enviarPedido()">📦 Enviar Pedido pelo WhatsApp</button>
+  </div>
+
+  <footer>Feito com ❤️ para o Natal</footer>
+
+  <script>
+    function enviarPedido() {
+      const numero = "5599999999999"; // 🔹 Substitua pelo seu número com DDD (ex: 5531999999999)
+      const itensSelecionados = [...document.querySelectorAll('input[name=item]:checked')]
+        .map(el => el.value);
+
+      if (itensSelecionados.length === 0) {
+        alert("Selecione pelo menos um item para enviar o pedido 🎄");
+        return;
+      }
+
+      const mensagem = `Olá! Quero fazer meu pedido de Natal 🎁:%0A- ${itensSelecionados.join('%0A- ')}`;
+      const link = `https://wa.me/${numero}?text=${mensagem}`;
+
+      window.open(link, "_blank");
+    }
+  </script>
+
+</body>
+</html>
