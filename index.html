@@ -1,134 +1,806 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardápio de Natal 🎄</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #fff8f0, #ffe8d6);
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #d62828;
-      color: white;
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 1.8rem;
-      letter-spacing: 1px;
-    }
-    .container {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      padding: 2rem;
-    }
-    h2 {
-      color: #d62828;
-      border-bottom: 2px solid #d62828;
-      padding-bottom: 0.3rem;
-    }
-    .item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 1rem 0;
-      padding: 0.8rem 1rem;
-      background-color: #fff5f0;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-    .item:hover {
-      background-color: #ffe0d3;
-      transform: scale(1.02);
-    }
-    label {
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
-    button {
-      background-color: #d62828;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: block;
-      margin: 2rem auto 0;
-      transition: 0.3s;
-    }
-    button:hover {
-      background-color: #9c1d1d;
-      transform: scale(1.05);
-    }
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio de Natal - Delícias da Madrinha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vermelho-natal: #d96b6b;
+            --vermelho-escuro: #c85b5b;
+            --vermelho-claro: #f2b6b6;
+            --verde-natal: #b8e3b0;
+            --verde-claro: #98d8a3;
+            --dourado: #e4c36e;
+            --branco: #ffffff;
+            --cinza-claro: #dcdcdc;
+            --cinza-escuro: #444444;
+            --sombra: rgba(0, 0, 0, 0.15);
+        }
+
+        /* HEADER MELHORADO */
+        header {
+            background: linear-gradient(135deg, var(--vermelho-escuro) 0%, var(--vermelho-natal) 50%, var(--vermelho-escuro) 100%);
+            color: var(--branco);
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid var(--dourado);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .titulo-loja {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /*Sombra Suavizada*/
+            color: var(--dourado);
+        }
+
+        .subtitulo {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 15px;
+            margin-top: 10px; /*Mais espaço*/
+            opacity: 0.95;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .endereco-loja {
+            font-size: 1.2rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin: 0 auto;
+            max-width: 400px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2); /*Borda Polida*/
+        }
+
+        .header-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        /* Conteúdo Principal */
+        .conteudo {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .menu-lateral {
+            width: 35%;
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, #e8e8e8 100%);
+            padding: 25px;
+            overflow-y: auto;
+            border-right: 3px solid var(--vermelho-claro);
+        }
+
+        .painel-principal {
+            width: 65%;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centraliza o conteúdo curto */
+            align-items: center;
+            background: linear-gradient(to bottom right, var(--branco), var(--cinza-claro));
+            position: relative;
+            /* Removemos min-height, max-height e overflow-y */
+        }
+
+        .painel-principal::before {
+            content: "";
+            position: absolute; /* Corrigido de 'ce' para 'absolute' */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--vermelho-natal), var(--verde-natal), var(--vermelho-natal));
+        }
+
+        .item-menu {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            margin-bottom: 15px;
+            background-color: var(--branco);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--sombra);
+            border-left: 5px solid transparent;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .item-menu:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--sombra);
+            border-color: var(--vermelho-claro);
+        }
+
+        .item-menu.selecionado {
+            background: linear-gradient(135deg, var(--vermelho-claro) 0%, var(--vermelho-natal) 100%);
+            color: var(--branco);
+            border-left: 5px solid var(--dourado);
+            transform: scale(1.02);
+        }
+
+        .item-menu.selecionado .nome-item {
+            color: var(--branco);
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--verde-natal);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .item-menu.selecionado .checkmark {
+            display: flex;
+        }
+
+        .foto-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-right: 25px;
+            border: 10px solid var(--vermelho-claro);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nome-item {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--cinza-escuro);
+        }
+
+        .info-prato {
+            text-align: center;
+            max-width: 550px;
+            padding: 30px;
+            width: 100%;
+        }
+
+        .foto-principal {
+            width: 320px;
+            height: 320px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 25px var(--sombra);
+            border: 5px solid var(--vermelho-claro);
+            transition: transform 0.3s ease;
+        }
+
+        .foto-principal:hover {
+            transform: scale(1.03);
+        }
+
+        .nome-prato {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--vermelho-escuro);
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nome-prato::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(to right, var(--vermelho-natal), var(--dourado), var(--verde-natal));
+            border-radius: 5px;
+        }
+
+        .descricao-prato{
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.8;
+            text-align: justify;
+            background: rgba(245, 245, 245, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--verde-natal);}
+            .detalhes-prato {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 35px;
+            background: white; /* <-- CORRIGIDO AQUI */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--sombra);
+            border: 2px solid var(--verde-claro);
+            }
+
+        .detalhe {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .detalhe-titulo {
+            font-weight: 700;
+            color: var(--vermelho-escuro);
+            margin-bottom: 8px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .detalhe-valor {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--verde-natal);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .botao-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            font-weight: 700;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 350px;
+            margin: 25px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .botao-whatsapp::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .botao-whatsapp:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .botao-whatsapp:hover::before {
+            left: 100%;
+        }
+
+        .botao-whatsapp i {
+            margin-right: 12px;
+            font-size: 1.6rem;
+        }
+
+        .selecao-multipla {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--branco) 0%, var(--cinza-claro) 100%);
+            border-radius: 12px;
+            font-weight: 700;
+            color: var(--vermelho-escuro);
+            box-shadow: 0 3px 10px var(--sombra);
+            border: 2px dashed var(--verde-natal);
+        }
+
+        .selecao-multipla input {
+            margin-right: 12px;
+            transform: scale(1.3);
+            accent-color: var(--verde-natal);
+        }
+
+    /* --- FOOTER ATUALIZADO --- */
+
+        footer {
+            background: linear-gradient(135deg, #2c5f2d 0%, #3a7d44 100%); /* Verde escuro sofisticado */
+            color: #e0e0e0; /* Branco suave para o texto geral */
+            padding: 40px 0 20px;
+            text-align: center;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3); /* Sombra mais marcada */
+            font-family: 'Nunito', sans-serif; /* Mantendo sua fonte */
+            position: relative;
+            overflow: hidden; /* Garante que decorações fiquem dentro */
+        }
+
+        footer h2 {
+            font-size: 2.2rem; /* Aumenta um pouco para destaque */
+            color: var(--dourado); /* Dourado sempre brilha */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px; /* Mais espaço após o parágrafo principal */
+            color: #c0c0c0; /* Um cinza mais claro para complementar */
+        }
+
+        /* Seções do Rodapé */
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 20px auto 0;
+        }
+        
+        .footer-section {
+            background: rgba(255, 255, 255, 0.08); /* Fundo sutil para cada caixa */
+            border-top: 3px solid var(--dourado); /* Mantém a borda dourada elegante */
+            padding: 25px 20px; /* Mais padding */
+            border-radius: 12px; /* Borda mais suave */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            flex: 1 1 300px; /* Garante que eles se alinhem */
+        }
+
+        .footer-section h3 {
+            color: var(--vermelho-natal); /* Usando o vermelho natalino para títulos de seção */
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.8px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #e0e0e0; /* Texto claro para contraste */
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s ease;
+            word-break: break-word; /* Garante que links não quebrem o layout */
+        }
+
+        .footer-section a:hover {
+            color: var(--dourado); /* Dourado ao passar o mouse */
+        }
+
+        /* Links Sociais */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: -10px 0 30px 0; /* Puxa para mais perto do título */
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15); /* Fundo um pouco mais opaco */
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--dourado); /* Fundo dourado ao passar o mouse */
+            color: #3a7d44; /* Texto em verde escuro */
+            transform: translateY(-7px) scale(1.15); /* Efeito mais pronunciado */
+            border-color: var(--dourado);
+        }
+
+        /* Pagamentos */
+        .footer-payment {
+            background: rgba(255, 255, 255, 0.08); /* Fundo sutil */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px auto 0;
+            max-width: 1100px;
+        }
+
+        .footer-payment h3 {
+            color: var(--verde-natal); /* Verde natalino para o título de pagamento */
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            background: #fff;
+            color: #3a7d44; /* Verde escuro para o texto dos métodos */
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            background: var(--dourado);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Copyright */
+        .copyright {
+            color: #b0b0b0; /* Texto mais suave */
+            font-size: 0.95rem;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1100px;
+            margin: 35px auto 0;
+        }
+
+        .copyright p {
+            margin-bottom: 10px; /* Menos espaço no copyright */
+            color: #b0b0b0;
+        }
+
+        .copyright span {
+            color: var(--dourado);
+        }
+        
+        /* Decoração de fundo do Footer */
+        .footer-decoration {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .conteudo {
+                flex-direction: column;
+            }
+            
+            .menu-lateral, .painel-principal {
+                width: 100%;
+            }
+            
+            .menu-lateral {
+                max-height: 350px;
+                border-right: none;
+                border-bottom: 3px solid var(--vermelho-claro);
+            }
+            
+            .titulo-loja {
+                font-size: 2.2rem;
+            }
+            
+            .subtitulo {
+                font-size: 1.3rem;
+            }
+            
+            .footer-info { /* Esta regra não parecia estar sendo usada, removida se OK */
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            /* Responsividade do Footer */
+            .footer-section {
+                flex: 1 1 100%; /* Em telas menores, as seções ocupam 100% da largura */
+                margin-bottom: 20px; 
+            }
+
+            .footer-content {
+                flex-direction: column; /* Colunas empilham em telas pequenas */
+                align-items: center;
+                width: 90%; /* Evita que as caixas colem nas bordas */
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <div class="header-decoration"></div>
+            
+            <div class="header-content">
+                <h1 class="titulo-loja">Delícias da Madrinha</h1>
+                <p class="subtitulo">Cardápio Especial de Natal 2025</p>
+                <p>
+                    <span>📍</span> Nova Serrana - MG
+                </p>
+            </div>
+        </header>
+        
+        <div class="conteudo">
+            <div class="menu-lateral">
+                <div class="selecao-multipla">
+                    <input type="checkbox" id="multipla-selecao">
+                    <label for="multipla-selecao">🎯 Selecionar múltiplos itens</label>
+                </div>
+                
+                <div class="item-menu selecionado" data-id="1">
+                    <div class="checkmark">✓</div>
+                    <img src="https://cdn0.tudoreceitas.com/pt/posts/5/0/7/salpicao_com_presunto_4705_600.jpg" alt="Salpicão" class="foto-item">
+                    <div class="nome-item">Salpicão</div>
+                </div>
+                
+                <div class="item-menu" data-id="2">
+                    <div class="checkmark">✓</div>
+                    <img src="https://static.itdg.com.br/images/1200-675/3c6f3e568cd1fcbfe83efa71d040dec3/shutterstock-2203816749-2-.jpg" alt="Lombo Assado" class="foto-item">
+                    <div class="nome-item">Lombo Assado</div>
+                </div>
+                
+                <div class="item-menu" data-id="3">
+                    <div class="checkmark">✓</div>
+                    <img src="https://www.receiteria.com.br/wp-content/uploads/farofa-de-natal-facil-1-730x480.jpg" alt="Farofa Natalina" class="foto-item">
+                    <div class="nome-item">Farofa</div>
+                </div>
+                
+                <div class="item-menu" data-id="4">
+                    <div class="checkmark">✓</div>
+                    <img src="https://tudodelicious.com/wp-content/uploads/2025/02/Fricasse-de-Frango-Cremoso-1024x1024.jpeg" alt="Fricassê" class="foto-item">
+                    <div class="nome-item">Fricassê</div>
+                </div>
+                
+                <div class="item-menu" data-id="5">
+                    <div class="checkmark">✓</div>
+                    <img src="https://static.itdg.com.br/images/360-240/f050711088de12b04bf3765ce6dfce8f/342842-original.jpg" alt="Parmegiana" class="foto-item">
+                    <div class="nome-item">Parmegiana</div>
+                </div>
+            </div>
+            
+            <div class="painel-principal">
+                <div class="info-prato">
+                    <img src="https://cdn0.tudoreceitas.com/pt/posts/5/0/7/salpicao_com_presunto_4705_600.jpg" alt="Bolo de Natal" class="foto-principal" id="foto-principal">
+                    <h2 class="nome-prato" id="nome-prato">Salpicão</h2>
+                    <p class="descricao-prato" id="descricao-prato">Refrescante e cheio de textura, o salpicão combina frango desfiado, legumes, frutas e aquele toque cremoso que faz toda diferença. Perfeito para acompanhar os pratos principais</p>
+                    
+                    <div class="detalhes-prato">
+                        <div class="detalhe">
+                            <div class="detalhe-titulo">Serve</div>
+                            <div class="detalhe-valor" id="serve-prato">8-10 pessoas</div>
+                        </div>
+                        <div class="detalhe">
+                            <div class="detalhe-titulo">Preço</div>
+                            <div class="detalhe-valor" id="preco-prato">R$ 65,00</div>
+                        </div>
+                        <div class="detalhe">
+                            <div class="detalhe-titulo">Tempo de Preparo</div>
+                            <div class="detalhe-valor">48h</div>
+                        </div>
+                    </div>
+                    
+                    <button class="botao-whatsapp" id="botao-whatsapp">
+                        <i>📱</i> Fazer pedido pelo WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📞 +55 (37) 99914-5767</p>
+                    <p>🌐 https://www.instagram.com/delicias.da.madrinha/</p>
+                </div>
+        
+                <div class="footer-section">
+                    <h3>Nova Serrana - MG</h3>
+                </div>
+        
+                <div class="footer-section">
+                    <p>Segunda a Sábado:<p>
+                </div>
+            </div>
 
-  <header>🎅 Cardápio de Natal 🎄</header>
-
-  <div class="container">
-    <h2>Escolha seus produtos:</h2>
-
-    <div class="item">
-      <label><input type="checkbox" name="item" value="Panetone Recheado"> Panetone Recheado</label>
+            <div class="footer-payment">
+                <h3>💳 Formas de Pagamento</h3>
+                <div class="payment-methods">
+                    <span class="payment-method">💵 Dinheiro</span>
+                    <span class="payment-method">📲 PIX</span>
+                    <span class="payment-method">💳 Cartão</span>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 Delícias da Madrinha - Todos os direitos reservados</p>
+            </div>
+        </footer>
     </div>
 
-    <div class="item">
-      <label><input type="checkbox" name="item" value="Caixa de Trufas"> Caixa de Trufas</label>
-    </div>
+    <script>
+        // Dados dos pratos 
+        const pratos = {
+            
+            1: {
+                nome: "Salpicão",
+                descricao: "Refrescante e cheio de textura, o salpicão combina frango desfiado, legumes, frutas e aquele toque cremoso que faz toda diferença. Perfeito para acompanhar os pratos principais.",
+                serve: "quantas pessoas?",
+                preco: "qual o valor?",
+                imagem: "https://cdn0.tudoreceitas.com/pt/posts/5/0/7/salpicao_com_presunto_4705_600.jpg"},
+            2: {
+                nome: "Torta de Chocolate",
+                descricao: "Intensa torta de chocolate meio amargo, com recheio cremoso e cobertura de ganache. Um clássico para os amantes de chocolate, perfeita para sua ceia.",
+                serve: "6-8 pessoas",
+                preco: "R$ 55,00",
+                imagem: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            3: {
+                nome: "Pavê Natalino",
+                descricao: "Camadas alternadas de biscoito champagne, creme de baunilha e chocolate, decorado com cerejas e nozes. Uma sobremesa clássica das festas de fim de ano. Nosso pavê é preparado com ingredientes premium e muito cuidado para garantir uma textura perfeita.",
+                serve: "10-12 pessoas",
+                preco: "R$ 48,00",
+                imagem: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            4: {
+                nome: "Panetone Artesanal",
+                descricao: "Panetone caseiro com frutas cristalizadas, passas e nozes, feito com massa fofinha e sabor inigualável. Perfeito para presentear ou servir na ceia. Nossa receita exclusiva garante um panetone macio e saboroso, ideal para as comemorações.",
+                serve: "8 pessoas",
+                preco: "R$ 42,00",
+                imagem: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            5: {
+                nome: "Tronco de Natal",
+                descricao: "Clássico tronco de natal com massa de chocolate, recheio de creme de avelã e cobertura que imita a textura da casca de árvore. Decorado com cogumelos de merengue. Uma sobremesa tradicional que encanta crianças e adultos.",
+                serve: "8-10 pessoas",
+                preco: "R$ 58,00",
+                imagem: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            }
+        };
 
-    <div class="item">
-      <label><input type="checkbox" name="item" value="Chocotone Gourmet"> Chocotone Gourmet</label>
-    </div>
+        // Elementos da página
+        const itensMenu = document.querySelectorAll('.item-menu');
+        const fotoPrincipal = document.getElementById('foto-principal');
+        const nomePrato = document.getElementById('nome-prato');
+        const descricaoPrato = document.getElementById('descricao-prato');
+        const servePrato = document.getElementById('serve-prato');
+        const precoPrato = document.getElementById('preco-prato');
+        const botaoWhatsapp = document.getElementById('botao-whatsapp');
+        const checkboxMultipla = document.getElementById('multipla-selecao');
 
-    <div class="item">
-      <label><input type="checkbox" name="item" value="Cesta de Natal"> Cesta de Natal</label>
-    </div>
+        // Array para armazenar os itens selecionados
+        let itensSelecionados = [1]; // Começa com o item 1 selecionado
 
-    <div class="item">
-      <label><input type="checkbox" name="item" value="Bombom Artesanal"> Bombom Artesanal</label>
-    </div>
+        // Função para atualizar o prato selecionado
+        function selecionarPrato(id, multiplaSelecao = false) {
+            // Se não for seleção múltipla, limpa a seleção anterior
+            if (!multiplaSelecao) {
+                itensSelecionados = [id];
+                itensMenu.forEach(item => {
+                    item.classList.remove('selecionado');
+                });
+            } else {
+                // Se for seleção múltipla, adiciona ou remove o item
+                const index = itensSelecionados.indexOf(id);
+                if (index === -1) {
+                    itensSelecionados.push(id);
+                } else {
+                    // Só permite remover se houver mais de um item selecionado
+                    if (itensSelecionados.length > 1) {
+                        itensSelecionados.splice(index, 1);
+                    }
+                }
+            }
+            
+            // Atualiza informações do prato principal (sempre o último selecionado)
+            const ultimoSelecionado = itensSelecionados[itensSelecionados.length - 1];
+            const pratoPrincipal = pratos[ultimoSelecionado];
+            
+            if (pratoPrincipal) {
+                fotoPrincipal.src = pratoPrincipal.imagem;
+                nomePrato.textContent = pratoPrincipal.nome;
+                descricaoPrato.textContent = pratoPrincipal.descricao;
+                servePrato.textContent = pratoPrincipal.serve;
+                precoPrato.textContent = pratoPrincipal.preco;
+            }
+            
+            // Atualiza estado selecionado dos itens do menu
+            itensMenu.forEach(item => {
+                const itemId = parseInt(item.getAttribute('data-id'));
+                if (itensSelecionados.includes(itemId)) {
+                    item.classList.add('selecionado');
+                } else {
+                    item.classList.remove('selecionado');
+                }
+            });
+        }
 
-    <button onclick="enviarPedido()">📦 Enviar Pedido pelo WhatsApp</button>
-  </div>
+        // Adiciona evento de clique aos itens do menu
+        itensMenu.forEach(item => {
+            item.addEventListener('click', function() {
+                const id = parseInt(this.getAttribute('data-id'));
+                const multiplaSelecao = checkboxMultipla.checked;
+                selecionarPrato(id, multiplaSelecao);
+            });
+        });
 
-  <footer>Feito com ❤️ para o Natal</footer>
+        selecionarPrato(1);
 
-  <script>
-    function enviarPedido() {
-      const numero = "5599999999999"; // 🔹 Substitua pelo seu número com DDD (ex: 5531999999999)
-      const itensSelecionados = [...document.querySelectorAll('input[name=item]:checked')]
-        .map(el => el.value);
-
-      if (itensSelecionados.length === 0) {
-        alert("Selecione pelo menos um item para enviar o pedido 🎄");
-        return;
-      }
-
-      const mensagem = `Olá! Quero fazer meu pedido de Natal 🎁:%0A- ${itensSelecionados.join('%0A- ')}`;
-      const link = `https://wa.me/${numero}?text=${mensagem}`;
-
-      window.open(link, "_blank");
-    }
-  </script>
-
+        botaoWhatsapp.addEventListener('click', function() {
+            let mensagem = "Olá! Gostaria de encomendar ";
+            let total = 0;
+            
+            if (itensSelecionados.length === 1) {
+                const prato = pratos[itensSelecionados[0]];
+                mensagem += `o ${prato.nome} (${prato.preco})`;
+            } else {
+                mensagem += "os seguintes itens do cardápio de Natal:\n";
+                itensSelecionados.forEach(id => {
+                    const prato = pratos[id];
+                    const precoLimpo = prato.preco.replace('R$ ', '').replace(',', '.');
+                    const preco = parseFloat(precoLimpo);
+                    
+                    if (!isNaN(preco)) {
+                        total += preco;
+                    }
+                    mensagem += `- ${prato.nome} (${prato.preco})\n`;
+                });
+                mensagem += `\nTotal: R$ ${total.toFixed(2).replace('.', ',')}`;
+            }
+            
+            mensagem += " da Delícias da Madrinha.";
+            const numeroWhatsapp = "5537999145767"; // Substitua pelo número real
+            window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagem)}`, '_blank');
+        });
+    </script>
 </body>
 </html>
+</div>
