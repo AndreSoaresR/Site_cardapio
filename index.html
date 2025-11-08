@@ -32,6 +32,9 @@
             background-color: #f9f9f9;
             color: var(--cinza-escuro);
             line-height: 1.6;
+            /* Garante que o CSS de quebra de palavra funcione em todo lugar */
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         /* HEADER MELHORADO */
@@ -57,6 +60,17 @@
             letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             color: var(--dourado);
+        }
+        
+        /* Seu aviso personalizado */
+        .aviso-site {
+            font-size: 1.2rem;
+            color: var(--branco);
+            background-color: rgba(0,0,0,0.3);
+            padding: 5px;
+            border-radius: 8px;
+            border: 1px solid var(--dourado);
+            margin-bottom: 15px;
         }
 
         .subtitulo {
@@ -95,10 +109,10 @@
                 radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
         }
 
-        /* Conteúdo Principal */
+        /* Conteúdo Principal (Mobile-First) */
         .conteudo {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Menu em cima do painel */
         }
 
         .menu-lateral {
@@ -106,6 +120,8 @@
             background: linear-gradient(135deg, var(--cinza-claro) 0%, #e8e8e8 100%);
             padding: 20px;
             border-bottom: 3px solid var(--vermelho-claro);
+            /* Scroll só aparece se precisar (no desktop) */
+            overflow-y: auto; 
         }
 
         .painel-principal {
@@ -190,6 +206,7 @@
             margin-right: 20px;
             border: 8px solid var(--vermelho-claro);
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0; /* Impede que a foto encolha */
         }
 
         .nome-item {
@@ -236,8 +253,11 @@
             content: "";
             position: absolute;
             bottom: -8px;
-            left: 10%;
+            /* Centraliza o after */
+            left: 50%;
+            transform: translateX(-50%);
             width: 80%;
+            max-width: 250px; /* Limite para o traço */
             height: 4px;
             background: linear-gradient(to right, var(--vermelho-natal), var(--dourado), var(--verde-natal));
             border-radius: 5px;
@@ -255,10 +275,12 @@
             border-left: 4px solid var(--verde-natal);
         }
 
+        /* === CSS DOS DETALHES CORRIGIDO === */
         .detalhes-prato {
-            display: center;
-            flex-direction: center;
-            gap: 15px;
+            display: flex;
+            flex-direction: column; /* Empilhado no celular (mobile-first) */
+            align-items: center;   /* Centraliza os itens */
+            gap: 20px;             /* Espaço entre os itens */
             width: 100%;
             margin-bottom: 30px;
             background: white;
@@ -275,7 +297,7 @@
 
         .detalhe-titulo {
             font-weight: 700;
-            color: var(--vermelho-escuro);
+            color: var(--cinza-escuro); /* Corrigido contraste */
             margin-bottom: 8px;
             font-size: 1rem;
             text-transform: uppercase;
@@ -284,8 +306,8 @@
 
         .detalhe-valor {
             font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--verde-natal);
+            font-weight: 600;
+            color: #3a7d44; /* Corrigido contraste */
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
@@ -360,7 +382,7 @@
         footer {
             background: linear-gradient(135deg, #2c5f2d 0%, #3a7d44 100%);
             color: #e0e0e0;
-            padding: 40px 0 20px;
+            padding: 40px 20px 20px 20px; /* Adicionado padding lateral */
             text-align: center;
             box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
             font-family: 'Nunito', sans-serif;
@@ -385,11 +407,12 @@
         /* Seções do Rodapé */
         .footer-content {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Mobile-first: empilhado */
             gap: 20px;
             max-width: 1100px;
             margin: 20px auto 0;
             padding: 0 15px;
+            width: 100%;
         }
         
         .footer-section {
@@ -414,7 +437,13 @@
             text-decoration: none;
             line-height: 1.8;
             transition: color 0.3s ease;
-            word-break: break-word;
+        }
+        
+        /* Regra para sublinhar o link */
+        .footer-section a {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
         }
 
         .footer-section a:hover {
@@ -459,6 +488,7 @@
             padding: 20px;
             margin: 25px auto 0;
             max-width: 1100px;
+            width: 100%;
         }
 
         .footer-payment h3 {
@@ -501,6 +531,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             max-width: 1100px;
             margin: 30px auto 0;
+            width: 100%;
         }
 
         .copyright p {
@@ -525,16 +556,19 @@
             z-index: -1;
         }
 
-        /* Responsividade para telas maiores */
+        /* ================================== */
+        /* === RESPONSIVIDADE P/ DESKTOP === */
+        /* ================================== */
         @media (min-width: 768px) {
             .conteudo {
-                flex-direction: row;
+                flex-direction: row; /* Lado a lado */
             }
             
             .menu-lateral {
                 width: 35%;
-                max-height: 100vh;
-                overflow-y: auto;
+                max-height: 100vh; /* Altura máxima da tela */
+                position: sticky; /* Menu fica fixo ao rolar */
+                top: 0;
                 border-right: 3px solid var(--vermelho-claro);
                 border-bottom: none;
             }
@@ -553,22 +587,26 @@
             }
             
             .footer-content {
-                flex-direction: row;
+                flex-direction: row; /* Lado a lado */
                 justify-content: space-around;
                 align-items: flex-start;
+                width: 100%;
             }
 
             .footer-section {
-                flex: 1 1 300px;
+                flex: 1 1 300px; /* Crescem e encolhem */
             }
             
+            /* Detalhes do prato em linha no desktop */
             .detalhes-prato {
                 flex-direction: row;
                 justify-content: space-around;
+                align-items: flex-start;
+                gap: 15px;
             }
             
             .foto-principal {
-                max-width: 320px;
+                max-width: 320px; /* Tamanho original */
             }
         }
     </style>
@@ -577,9 +615,7 @@
     <div class="container">
         <header>
             <div class="header-decoration"></div>
-            
-            <div class="header-content">
-                <h1 class="titulo-loja"> O SITE AINDA NÃO ESTÁ PRONTO, FALTA OS VALORES.</h1>
+    
                 <h1 class="titulo-loja">Delícias da Madrinha</h1>
                 <p class="subtitulo">Cardápio Especial de Natal 2025</p>
                 <p class="endereco-loja">
@@ -624,26 +660,32 @@
                     <img src="https://static.itdg.com.br/images/360-240/f050711088de12b04bf3765ce6dfce8f/342842-original.jpg" alt="Parmegiana" class="foto-item">
                     <div class="nome-item">Parmegiana</div>
                 </div>
+                
+                <div class="item-menu" data-id="6">
+                    <div class="checkmark">✓</div>
+                    <img src="https://ricotaemaricota.com/wp-content/uploads/2022/10/feijao-tropeiro-mineiro-1080x720px.webp" alt="Tropeiro" class="foto-item">
+                    <div class="nome-item">Tropeiro</div>
+                </div>
             </div>
             
             <div class="painel-principal">
                 <div class="info-prato">
-                    <img src="https://cdn0.tudoreceitas.com/pt/posts/5/0/7/salpicao_com_presunto_4705_600.jpg" alt="Salpicão" class="foto-principal" id="foto-principal">
-                    <h2 class="nome-prato" id="nome-prato">Salpicão</h2>
-                    <p class="descricao-prato" id="descricao-prato">Refrescante e cheio de textura, o salpicão combina frango desfiado, legumes, frutas e aquele toque cremoso que faz toda diferença. Perfeito para acompanhar os pratos principais</p>
+                    <img src="" alt="Foto do Prato" class="foto-principal" id="foto-principal">
+                    <h2 class="nome-prato" id="nome-prato"></h2>
+                    <p class="descricao-prato" id="descricao-prato"></p>
                     
                     <div class="detalhes-prato">
                         <div class="detalhe">
                             <div class="detalhe-titulo">Serve</div>
-                            <div class="detalhe-valor" id="serve-prato">8-10 pessoas</div>
+                            <div class="detalhe-valor" id="serve-prato"></div>
                         </div>
                         <div class="detalhe">
                             <div class="detalhe-titulo">Preço</div>
-                            <div class="detalhe-valor" id="preco-prato">R$ 65,00</div>
+                            <div class="detalhe-valor" id="preco-prato"></div>
                         </div>
                         <div class="detalhe">
-                            <div class="detalhe-titulo">Tempo de Preparo</div>
-                            <div class="detalhe-valor">48h</div>
+                            <div class="detalhe-titulo">Preparo</div>
+                            <div class="detalhe-valor">Sob Encomenda</div>
                         </div>
                     </div>
                     
@@ -655,6 +697,20 @@
         </div>
         
         <footer>
+            <div class="footer-decoration"></div>
+            
+            <h2>Delícias da Madrinha</h2>
+            <p>Seu Natal ainda mais delicioso!</p>
+
+            <div class="social-links">
+                <a href="https://www.instagram.com/delicias.da.madrinha/" target="_blank" class="social-link" title="Instagram">
+                    <i>📷</i>
+                </a>
+                <a href="https://wa.me/5537999145767" target="_blank" class="social-link" title="WhatsApp">
+                    <i>📱</i>
+                </a>
+            </div>
+
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Contato</h3>
@@ -665,12 +721,13 @@
                         </a>
                     </p>
                 </div>
-        
                 
                 <div class="footer-section">
-                    <h3>Nova Serrana - MG</h3>
+                    <h3>Endereço</h3>
+                    <p>Nova Serrana - MG</p>
                     <p>Entregamos em toda a região</p>
                 </div>
+
             </div>
 
             <div class="footer-payment">
@@ -686,47 +743,52 @@
                 <p>© 2025 Delícias da Madrinha - Todos os direitos reservados</p>
             </div>
         </footer>
-    </div>
-
-    <script>
-        // Dados dos pratos 
+    </div> <script>
+      
         const pratos = {
             1: {
                 nome: "Salpicão",
                 descricao: "Refrescante e cheio de textura, o salpicão combina frango desfiado, legumes, frutas e aquele toque cremoso que faz toda diferença. Perfeito para acompanhar os pratos principais.",
-                serve: "CONFIRMAR O TAMANHO COM A ALESSANDRA",
-                preco: "CONFIRMAR PREÇO COM A ALESSANDRA",
+                serve: "10 pessoas",
+                preco: "R$ 120,00",
                 imagem: "https://cdn0.tudoreceitas.com/pt/posts/5/0/7/salpicao_com_presunto_4705_600.jpg"
             },
             2: {
                 nome: "Lombo Assado",
                 descricao: "Suculento lombo de porco assado lentamente com temperos especiais, resultando em uma carne macia e saborosa. Acompanha molho especial da casa.",
-                serve: "ONFIRMAR O TAMANHO COM A ALESSANDRA",
-                preco: "CONFIRMAR PREÇO COM A ALESSANDRA",
+                serve: "10 pessoas",
+                preco: "R$ 200,00",
                 imagem: "https://static.itdg.com.br/images/1200-675/3c6f3e568cd1fcbfe83efa71d040dec3/shutterstock-2203816749-2-.jpg"
             },
             3: {
                 nome: "Farofa",
                 descricao: "Farofa crocante e saborosa com bacon, calabresa, ovos, passas e temperos especiais. O acompanhamento perfeito para sua ceia de Natal.",
-                serve: "ONFIRMAR O TAMANHO COM A ALESSANDRA",
-                preco: "CONFIRMAR PREÇO COM A ALESSANDRA",
+                serve: "10 pessoas",
+                preco: "R$ 120,00",
                 imagem: "https://www.receiteria.com.br/wp-content/uploads/farofa-de-natal-facil-1-730x480.jpg"
             },
             4: {
                 nome: "Fricassê",
                 descricao: "Cremoso fricassê de frango com milho, batata palha e queijo, gratinado no forno. Um clássico reconfortante que agrada a todos.",
-                serve: "CONFIRMAR O TAMANHO COM A ALESSANDRA",
-                preco: "CONFIRMAR PREÇO COM A ALESSANDRA",
+                serve: "10 pessoas",
+                preco: "R$ 200,00",
                 imagem: "https://tudodelicious.com/wp-content/uploads/2025/02/Fricasse-de-Frango-Cremoso-1024x1024.jpeg"
             },
             5: {
                 nome: "Parmegiana",
                 descricao: "Delicioso filé à parmegiana com molho de tomate caseiro e queijo derretido. Acompanha arroz branco e fritas crocantes.",
-                serve: "CONFIRMAR O TAMANHO COM A ALESSANDRA",
-                preco: "CONFIRMAR PREÇO COM A ALESSANDRA",
+                serve: "10 pessoas",
+                preco: "R$ 200,00",
                 imagem: "https://static.itdg.com.br/images/360-240/f050711088de12b04bf3765ce6dfce8f/342842-original.jpg"
+            },
+            6: {
+                nome: "Tropeiro",
+                descricao: "Autêntico Tropeiro Completo: feijão cozido no ponto, misturado com bacon, calabresa, carne suína e ovos. Finalizado com torresmo pururuca e cebola dourada. Acompanha arroz branco e couve refogada na hora.",
+                serve: "10 pessoas",
+                preco: "R$ 200,00",
+                imagem: "https://ricotaemaricota.com/wp-content/uploads/2022/10/feijao-tropeiro-mineiro-1080x720px.webp"
             }
-        };
+         };
 
         // Elementos da página
         const itensMenu = document.querySelectorAll('.item-menu');
